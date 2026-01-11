@@ -15,7 +15,7 @@ func RootHandler(res http.ResponseWriter, req *http.Request) {
 }
 
 func UploadHandler(res http.ResponseWriter, req *http.Request) {
-	if req.Method != http.MethodPost {
+	if req.Method != http.MethodGet && req.Method != http.MethodPost {
 		http.Error(res, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
@@ -39,7 +39,8 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	name := time.Now().UTC().Format("2006-01-02_15-04-05") + filepath.Ext(fileHeader.Filename)
+	ext := filepath.Ext(fileHeader.Filename)
+	name := time.Now().UTC().Format("2006-01-02_15-04-05") + ext
 
 	if err := os.WriteFile(name, []byte(translate), 0755); err != nil {
 		http.Error(res, err.Error(), http.StatusInternalServerError)

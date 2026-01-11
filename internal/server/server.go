@@ -28,8 +28,6 @@ func NewServer(logger *log.Logger) *Server {
 		IdleTimeout:  15 * time.Second,
 	}
 
-	logger.Println("serv good")
-
 	return &Server{
 		logger: logger,
 		server: server,
@@ -38,7 +36,6 @@ func NewServer(logger *log.Logger) *Server {
 }
 
 func (s *Server) Start() {
-	s.logger.Println("Start serv")
 	if err := s.server.ListenAndServe(); err != nil {
 		s.logger.Fatal()
 		return
