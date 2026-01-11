@@ -11,11 +11,11 @@ import (
 )
 
 func RootHandler(res http.ResponseWriter, req *http.Request) {
-	http.ServeFile(res, req, "../index.html")
+	http.ServeFile(res, req, "index.html")
 }
 
 func UploadHandler(res http.ResponseWriter, req *http.Request) {
-	if req.Method != http.MethodGet && req.Method != http.MethodPost {
+	if req.Method != http.MethodPost {
 		http.Error(res, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
